@@ -1,5 +1,6 @@
 var backImage,player_running,bananaImage,obstacle_img;
 var jungle,monkey,obstacleGroup,foodGroup;
+var score=0;
 
 function preload () {
 backImage = loadImage("jungle.jpg");
@@ -35,7 +36,12 @@ function setup() {
 function draw() {
   background(220);
   
-   if (keyDown("space")&& monkey.y >= 324){
+  stroke("white");
+  fill("white");
+  textSize(20);
+  text("Score:"+ score , 100,50);
+  
+   if (keyDown("space")){
     monkey.velocityY= -10;
   }
   
@@ -48,9 +54,11 @@ function draw() {
   obstacleGroup.destroyEach();
   }
     if (obstacleGroup.isTouching(monkey)){
-   monkey.scale = 0.2;
+   monkey.scale = 0.1;
    }
- 
+    if (foodGroup.isTouching(monkey)){
+      monkey.scale = 0.5;
+    } 
      
   monkey.velocityY = monkey.velocityY + 0.9;
   
@@ -68,10 +76,8 @@ function draw() {
               default:break;         
   }
 
-   stroke("white");
-   textSize(20);
-   fill("white");
-   text("Score:"+ score , 500,50);
+  
+  
   
    food();
    obstacle();
@@ -102,7 +108,7 @@ if (World.frameCount % 80 === 0){
    
     stone.addImage(obstacle_img);
     stone.scale= 0.15;
-   
+     
     stone.velocityX = -7;
     stone.setlifetime=100;
     
@@ -110,5 +116,3 @@ if (World.frameCount % 80 === 0){
 
   }
   }
-
-  
